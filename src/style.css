@@ -55,8 +55,10 @@ body { display: flex; flex-direction: column; }
 }
 
 .browser-area { position: relative; flex: 1; min-height: 0; }
-#view { width: 100%; height: 100%; display: flex; }
+#view { width: 100%; height: 100%; display: flex; border: 0; }
 
+/* The welcome screen is kept in the markup for fallback UI, but must not cover the webview. */
+.welcome[hidden] { display: none !important; }
 .welcome {
   position: absolute;
   inset: 0;
