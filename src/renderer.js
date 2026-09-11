@@ -1,9 +1,9 @@
+import '@material/web/button/icon-button.js';
+import { argbFromHex, themeFromSourceColor, applyTheme } from '@material/material-color-utilities';
+
 const view = document.getElementById('view');
 const address = document.getElementById('address');
 const form = document.getElementById('address-form');
-const welcomeForm = document.getElementById('welcome-form');
-const welcomeInput = document.getElementById('welcome-input');
-const statusText = document.getElementById('status-text');
 
 const HOME = 'https://www.google.com';
 
@@ -33,11 +33,6 @@ form.addEventListener('submit', (event) => {
   navigate(address.value);
 });
 
-welcomeForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  navigate(welcomeInput.value);
-});
-
 document.getElementById('back').addEventListener('click', () => {
   if (view.canGoBack()) view.goBack();
 });
@@ -49,12 +44,7 @@ document.getElementById('forward').addEventListener('click', () => {
 document.getElementById('reload').addEventListener('click', () => view.reload());
 document.getElementById('home').addEventListener('click', () => view.loadURL(HOME));
 
-view.addEventListener('did-start-loading', () => {
-  statusText.textContent = '読み込み中…';
-});
-
 view.addEventListener('did-stop-loading', () => {
-  statusText.textContent = '準備完了';
   address.value = view.getURL();
 });
 
@@ -70,9 +60,12 @@ view.addEventListener('page-title-updated', (event) => {
   document.title = event.title ? `${event.title} - Browsery` : 'Browsery';
 });
 
-view.addEventListener('did-fail-load', (event) => {
-  if (event.errorCode === -3) return;
-  statusText.textContent = `読み込みエラー: ${event.errorDescription}`;
-});
-
 address.value = HOME;
+
+const sourceColor = argbFromHex('#6750A4');
+const theme = themeFromSourceColor(sourceColor);
+applyTheme(theme, { target: document.documentElement, dark: false });
+
+document.documentElement.style.setProperty('--md-sys-color-surface', '#fffbfe');
+document.documentElement.style.setProperty('--md-sys-color-surface-container', '#f3edf7');
+document.documentElement.style.setProperty('--md-sys-color-on-surface', '#1d1b20');
