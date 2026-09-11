@@ -5,32 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Browsery</title>
   <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="../node_modules/material-design-icons/iconfont/material-icons.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "@material/web/": "../node_modules/@material/web/",
+        "@material/material-color-utilities": "../node_modules/@material/material-color-utilities/index.js"
+      }
+    }
+  </script>
 </head>
 <body>
   <header class="toolbar">
-    <button id="back" class="icon" title="戻る">←</button>
-    <button id="forward" class="icon" title="進む">→</button>
-    <button id="reload" class="icon" title="再読み込み">↻</button>
+    <div class="navigation" aria-label="ブラウザ操作">
+      <button id="back" class="icon-button" title="戻る" aria-label="戻る"><span class="material-icons">arrow_back</span></button>
+      <button id="forward" class="icon-button" title="進む" aria-label="進む"><span class="material-icons">arrow_forward</span></button>
+      <button id="reload" class="icon-button" title="再読み込み" aria-label="再読み込み"><span class="material-icons">refresh</span></button>
+    </div>
+
     <form id="address-form" class="address-wrap">
-      <input id="address" autocomplete="off" spellcheck="false" placeholder="URL または検索語を入力" />
+      <span class="material-icons address-icon" aria-hidden="true">language</span>
+      <input id="address" autocomplete="off" spellcheck="false" placeholder="URL または検索語を入力" aria-label="アドレス" />
     </form>
-    <button id="home" class="icon" title="ホーム">⌂</button>
+
+    <button id="home" class="icon-button" title="ホーム" aria-label="ホーム"><span class="material-icons">home</span></button>
   </header>
 
   <main class="browser-area">
     <webview id="view" src="https://www.google.com/" allowpopups></webview>
-    <section id="welcome" class="welcome" hidden>
-      <div class="logo">B</div>
-      <h1>Browsery</h1>
-      <p>軽く、シンプルに、ウェブへ。</p>
-      <form id="welcome-form" class="welcome-search">
-        <input id="welcome-input" placeholder="URL または検索語" />
-        <button>検索</button>
-      </form>
-    </section>
   </main>
 
-  <footer class="status"><span id="status-text">準備完了</span></footer>
-  <script src="./renderer.js"></script>
+  <script type="module" src="./renderer.js"></script>
 </body>
 </html>
